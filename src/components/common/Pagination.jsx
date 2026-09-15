@@ -1,14 +1,27 @@
-
-
-
-
-
-
 function Pagination({
   currentPage,
   totalPages,
   onPageChange
 }) {
+
+  const maxVisiblePages = 5;
+
+  let startPage =
+    Math.floor((currentPage - 1) / maxVisiblePages)
+    * maxVisiblePages + 1;
+
+  let endPage =
+    startPage + maxVisiblePages - 1;
+
+  if (endPage > totalPages) {
+    endPage = totalPages;
+  }
+
+  const pages = [];
+
+  for (let page = startPage; page <= endPage; page++) {
+    pages.push(page);
+  }
 
   return (
     <div className="pagination">
@@ -20,21 +33,18 @@ function Pagination({
         Previous
       </button>
 
-      {Array.from(
-        { length: totalPages },
-        (_, index) => index + 1
-      ).map((page) => (
-
+      {pages.map((page) => (
         <button
           key={page}
           onClick={() => onPageChange(page)}
           className={
-            currentPage === page ? "active" : ""
+            currentPage === page
+              ? "active"
+              : ""
           }
         >
           {page}
         </button>
-
       ))}
 
       <button
@@ -43,7 +53,6 @@ function Pagination({
       >
         Next
       </button>
-
 
     </div>
   );

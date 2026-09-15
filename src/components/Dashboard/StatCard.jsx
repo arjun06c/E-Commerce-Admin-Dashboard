@@ -1,4 +1,9 @@
-function StatCard({ title, value, change, icon }) {
+function StatCard({
+  title,
+  value,
+  icon,
+  description
+}) {
 
   return (
     <div className="stat-card">
@@ -21,8 +26,8 @@ function StatCard({ title, value, change, icon }) {
 
       </div>
 
-      <p className="stat-change">
-        {change}
+      <p className="stat-description">
+        {description}
       </p>
 
     </div>

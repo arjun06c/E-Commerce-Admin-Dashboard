@@ -27,11 +27,13 @@ function ProductCard({ product }) {
 
         <br />
 
-        <Link
-          to={`/products/${product.id}`}
-        >
-          View Details
-        </Link>
+       <Link
+  to={`/products/${product.id}`}
+  className="product-details-link"
+>
+  View Details →
+</Link>
+
 
       </div>
 

@@ -1,5 +1,25 @@
 function OrderTable({ orders }) {
 
+  const getOrderStatus = (orderId) => {
+
+    const statusNumber = orderId % 4;
+
+    if (statusNumber === 0) {
+      return "Completed";
+    }
+
+    if (statusNumber === 1) {
+      return "Processing";
+    }
+
+    if (statusNumber === 2) {
+      return "Pending";
+    }
+
+    return "Cancelled";
+  };
+
+
   return (
     <div className="table-container">
 
@@ -8,66 +28,70 @@ function OrderTable({ orders }) {
         <thead>
           <tr>
 
-            <th>
-              Order ID
-            </th>
+            <th>Order ID</th>
 
-            <th>
-              User ID
-            </th>
+            <th>User ID</th>
 
-            <th>
-              Products
-            </th>
+            <th>Products</th>
 
-            <th>
-              Quantity
-            </th>
+            <th>Quantity</th>
 
-            <th>
-              Total
-            </th>
+            <th>Total</th>
 
-            <th>
-              Discounted Total
-            </th>
+            <th>Discounted Total</th>
+
+            <th>Status</th>
 
           </tr>
         </thead>
 
         <tbody>
 
-          {orders.map((order) => (
+          {orders.map((order) => {
 
-            <tr key={order.id}>
+            const status = getOrderStatus(order.id);
 
-              <td>
-                #{order.id}
-              </td>
+            return (
+              <tr key={order.id}>
 
-              <td>
-                User #{order.userId}
-              </td>
+                <td>
+                  #{order.id}
+                </td>
 
-              <td>
-                {order.totalProducts}
-              </td>
+                <td>
+                  User #{order.userId}
+                </td>
 
-              <td>
-                {order.totalQuantity}
-              </td>
+                <td>
+                  {order.totalProducts}
+                </td>
 
-              <td>
-                ${order.total}
-              </td>
+                <td>
+                  {order.totalQuantity}
+                </td>
 
-              <td>
-                ${order.discountedTotal}
-              </td>
+                <td>
+                  ${order.total}
+                </td>
 
-            </tr>
+                <td>
+                  ${order.discountedTotal}
+                </td>
 
-          ))}
+                <td>
+
+                  <span
+                    className={`order-status ${status.toLowerCase()}`}
+                  >
+                    {status}
+                  </span>
+
+                </td>
+
+              </tr>
+            );
+
+          })}
 
         </tbody>
 

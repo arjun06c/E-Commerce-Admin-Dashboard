@@ -3,6 +3,8 @@ import api from "../services/api";
 import UserTable from "../components/users/UserTable";
 import UserFilters from "../components/users/UserFilters";
 import Pagination from "../components/common/Pagination";
+import Loader from "../components/common/Loader";
+import ErrorMessage from "../components/common/ErrorMessage";
 function Users() {
 
   const [users, setUsers] = useState([]);
@@ -123,13 +125,17 @@ const handlePageChange = (page) => {
 
 };
 
-  if (loading) {
-    return <h2>Loading users...</h2>;
-  }
-
+if (loading) {
+  return <Loader message="Loading users..." />;
+}
   if (error) {
-    return <h2>{error}</h2>;
-  }
+  return (
+    <ErrorMessage
+      message={error}
+      onRetry={fetchUsers}
+    />
+  );
+}
 
   return (
     <div>

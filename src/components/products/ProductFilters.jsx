@@ -8,68 +8,112 @@ function ProductFilters({
 }) {
 
   return (
-    <div className="product-filters">
+    <div className="product-filter-card">
 
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={search}
-        onChange={(event) => setSearch(event.target.value)}
-      />
+      <div className="filter-group search-group">
 
-      <select
-        value={category}
-        onChange={(event) => setCategory(event.target.value)}
-      >
-        <option value="all">
-          All Categories
-        </option>
+        <label>
+          Search Products
+        </label>
 
-        <option value="beauty">
-          Beauty
-        </option>
+        <div className="search-box">
 
-        <option value="fragrances">
-          Fragrances
-        </option>
+          <span className="search-icon">
+            🔍
+          </span>
 
-        <option value="furniture">
-          Furniture
-        </option>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(event) =>
+              setSearch(event.target.value)
+            }
+          />
 
-        <option value="groceries">
-          Groceries
-        </option>
-      </select>
+        </div>
 
-      <select
-        value={sortBy}
-        onChange={(event) => setSortBy(event.target.value)}
-      >
-        <option value="default">
+      </div>
+
+
+      <div className="filter-group">
+
+        <label>
+          Category
+        </label>
+
+        <select
+          value={category}
+          onChange={(event) =>
+            setCategory(event.target.value)
+          }
+        >
+
+          <option value="all">
+            All Categories
+          </option>
+
+          <option value="beauty">
+            Beauty
+          </option>
+
+          <option value="fragrances">
+            Fragrances
+          </option>
+
+          <option value="furniture">
+            Furniture
+          </option>
+
+          <option value="groceries">
+            Groceries
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div className="filter-group">
+
+        <label>
           Sort By
-        </option>
+        </label>
 
-        <option value="name-asc">
-          Name: A-Z
-        </option>
+        <select
+          value={sortBy}
+          onChange={(event) =>
+            setSortBy(event.target.value)
+          }
+        >
 
-        <option value="name-desc">
-          Name: Z-A
-        </option>
+          <option value="default">
+            Default
+          </option>
 
-        <option value="price-low">
-          Price: Low to High
-        </option>
+          <option value="name-asc">
+            Name: A-Z
+          </option>
 
-        <option value="price-high">
-          Price: High to Low
-        </option>
+          <option value="name-desc">
+            Name: Z-A
+          </option>
 
-        <option value="rating-high">
-          Rating: High to Low
-        </option>
-      </select>
+          <option value="price-low">
+            Price: Low to High
+          </option>
+
+          <option value="price-high">
+            Price: High to Low
+          </option>
+
+          <option value="rating-high">
+            Rating: High to Low
+          </option>
+
+        </select>
+
+      </div>
 
     </div>
   );

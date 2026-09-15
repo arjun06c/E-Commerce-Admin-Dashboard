@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import ProductCard from "../components/products/ProductCard";
 import ProductFilters from "../components/products/ProductFilters";
-
+import Loader from "../components/common/Loader";
+import ErrorMessage from "../components/common/ErrorMessage";
 function Products() {
 
   const [products, setProducts] = useState([]);
@@ -107,16 +108,18 @@ function Products() {
     }
   );
 
+if (loading) {
+  return <Loader message="Loading products..." />;
+}
 
-  if (loading) {
-    return <h2>Loading products...</h2>;
-  }
-
-
-  if (error) {
-    return <h2>{error}</h2>;
-  }
-
+if (error) {
+  return (
+    <ErrorMessage
+      message={error}
+      onRetry={fetchProducts}
+    />
+  );
+}
 
   return (
     <div>

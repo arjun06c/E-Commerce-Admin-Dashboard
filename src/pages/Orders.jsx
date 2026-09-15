@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+
 import OrderTable from "../components/orders/OrderTable";
+import OrderFilters from "../components/orders/OrderFilters";
+import Pagination from "../components/common/Pagination";
+import Loader from "../components/common/Loader";   
+import ErrorMessage from "../components/common/ErrorMessage";
 function Orders() {
 
   const [orders, setOrders] = useState([]);
@@ -8,6 +13,14 @@ function Orders() {
   const [loading, setLoading] = useState(true);
 
   const [error, setError] = useState("");
+
+  const [search, setSearch] = useState("");
+
+  const [status, setStatus] = useState("all");
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const ordersPerPage = 5;
 
 
   useEffect(() => {
@@ -38,31 +51,83 @@ function Orders() {
   };
 
 
-  if (loading) {
-    return <h2>Loading orders...</h2>;
-  }
+  const filteredOrders = orders.filter((order) => {
+
+    const orderId = order.id.toString();
+
+    const userId = order.userId.toString();
+
+    const matchesSearch =
+      orderId.includes(search) ||
+      userId.includes(search);
+
+    return matchesSearch;
+
+  });
 
 
-  if (error) {
-    return <h2>{error}</h2>;
-  }
+  const totalPages = Math.ceil(
+    filteredOrders.length / ordersPerPage
+  );
 
 
+  const startIndex =
+    (currentPage - 1) * ordersPerPage;
+
+
+  const paginatedOrders = filteredOrders.slice(
+    startIndex,
+    startIndex + ordersPerPage
+  );
+
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+
+ if (loading) {
+  return <Loader message="Loading orders..." />;
+}
+if (error) {
   return (
-  <div>
-
-    <h1>Orders</h1>
-
-    <p>
-      Total Orders: {orders.length}
-    </p>
-
-    <OrderTable
-      orders={orders}
+    <ErrorMessage
+      message={error}
+      onRetry={fetchOrders}
     />
+  );
+}
+  return (
+    <div>
 
-  </div>
-);
+      <h1>Orders</h1>
+
+      <p>
+        Total Orders: {filteredOrders.length}
+      </p>
+
+
+      <OrderFilters
+        search={search}
+        setSearch={setSearch}
+        status={status}
+        setStatus={setStatus}
+      />
+
+
+      <OrderTable
+        orders={paginatedOrders}
+      />
+
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+
+    </div>
+  );
 }
 
 export default Orders;

@@ -1,9 +1,6 @@
-import {
-  Routes,
-  Route
-} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import UserDetails from "./pages/UserDetails";
@@ -11,11 +8,11 @@ import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Orders from "./pages/Orders";
 import Settings from "./pages/Settings";
-function App() {
+import NotFound from "./pages/NotFound";
 
+function App() {
   return (
     <Routes>
-
       <Route
         path="/"
         element={
@@ -79,6 +76,7 @@ function App() {
         }
       />
 
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
