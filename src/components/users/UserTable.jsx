@@ -62,7 +62,7 @@ function UserTable({ users, sortUsers }) {
                   <img
                     src={user.image}
                     alt={user.firstName}
-                    className="user-avatar"
+                    className="user-avatar"m 
                   />
 
                   <div>

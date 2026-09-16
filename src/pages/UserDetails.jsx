@@ -55,6 +55,7 @@ function UserDetails() {
 
       <button
         onClick={() => navigate("/users")}
+        style ={{ marginBottom: "20px" , padding: "10px 20px", border: "none", borderRadius: "7px", background: "#2563eb", color: "white", fontWeight: "600" }}
       >
         ← Back to Users
       </button>
